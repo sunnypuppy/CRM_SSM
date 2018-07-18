@@ -51,6 +51,10 @@ public class CustomerController {
 		model.addAttribute("queryVo", queryVo);
 		
 		model.addAttribute("page", page);
+		
+		//首次冲突模拟
+		System.out.println("首次冲突模拟");
+		
 		return "customer";
 	}
 	
