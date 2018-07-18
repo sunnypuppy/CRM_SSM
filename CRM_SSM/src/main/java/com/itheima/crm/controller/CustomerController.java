@@ -73,6 +73,9 @@ public class CustomerController {
 		//dev分支首次添加内容
 		System.out.println("dev分支首次添加内容");
 		
+		//dev分支第二次添加内容
+		System.out.println("dev分支第二次添加内容");
+		
 		return "customer";
 	}
 	
