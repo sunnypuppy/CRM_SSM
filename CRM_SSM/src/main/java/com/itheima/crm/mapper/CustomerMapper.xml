@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper	namespace="com.itheima.crm.mapper.CustomerMapper">
+	<resultMap type="customer" id="customerMap">
+		<id column="cust_id" property="custId"/>
+		<result column="cust_name" property="custName"/>
+		<result column="cust_user_id" property="custUserId"/>
+		<result column="cust_create_id" property="custCreateId"/>
+		<result column="cust_source" property="custSource"/>
+		<result column="cust_industry" property="custIndustry"/>
+		<result column="cust_level" property="custLevel"/>
+		<result column="cust_linkman" property="custLinkman"/>
+		<result column="cust_phone" property="custPhone"/>
+		<result column="cust_mobile" property="custMobile"/>
+		<result column="cust_zipcode" property="custZipcode"/>
+		<result column="cust_address" property="custAddress"/>
+		<result column="cust_createtime" property="custCreatetime"/>
+	</resultMap>
+	
+	<!-- 根据动态条件分页查询用户的信息  -->
+	<select id="queryCustomerDynamic" parameterType="queryVo" resultMap="customerMap">
+		select c.cust_id, c.cust_name, d1.dict_item_name cust_source, d2.dict_item_name cust_industry, d3.dict_item_name cust_level, c.cust_phone, c.cust_mobile
+		from customer c
+		left join base_dict d1 on d1.dict_id = c.cust_source
+		left join base_dict d2 on d2.dict_id = c.cust_industry
+		left join base_dict d3 on d3.dict_id = c.cust_level
+		<where>
+			<if test="custName != null and custName != ''">
+				c.cust_name like '%${custName}%'
+			</if>
+			<if test="custSource != null and custSource != ''">
+				and c.cust_soure = #{custSource} 
+			</if>
+			<if test="custIndustry != null and custIndustry != ''">
+				and c.cust_industry = #{custIndustry} 
+			</if>
+			<if test="custLevel != null and custLevel != ''">
+				and c.cust_level = #{custLevel} 
+			</if>
+		</where>
+		limit #{start}, #{rows}
+	</select>
+	
+	<!-- 
+		根据动态条件查询总记录数
+		注意不能讲parameterType写成parameterMap.
+	 -->
+	<select id="queryCustomerCount" parameterType="queryVo" resultType="long">
+		select count(*)
+		from customer c
+		<where>
+			<if test="custName != null and custName != ''">
+				c.cust_name like '%${custName}%'
+			</if>
+			<if test="custSource != null and custSource != ''">
+				and c.cust_soure = #{custSource} 
+			</if>
+			<if test="custIndustry != null and custIndustry != ''">
+				and c.cust_industry = #{custIndustry} 
+			</if>
+			<if test="custLevel != null and custLevel != ''">
+				and c.cust_level = #{custLevel} 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据客户的id进行查询 -->
+	<select id="queryCustomerById" parameterType="long" resultMap="customerMap">
+		select * from customer c where c.cust_id = #{custId}
+	</select>
+	
+	<!-- 动态修改用户 -->
+	<update id="updateCustomer" parameterType="customer">
+		update customer c 
+		<set>
+			<if test="custName != null">
+				c.cust_name = #{custName},
+			</if>
+			<if test="custSource != null">
+				 c.cust_source = #{custSource},
+			</if>
+			<if test="custIndustry != null">
+				c.cust_industry = #{custIndustry},
+			</if>
+			<if test=" custLevel != null">
+				 c.cust_level = #{custLevel},
+			</if>
+			<if test="custLinkman !=null">
+				 c.cust_linkman = #{custLinkman},
+			</if>
+			<if test="custPhone != null">
+				c.cust_phone = #{custPhone},
+			</if>
+			<if test="custMobile != null">
+				c.cust_mobile = #{custMobile},
+			</if>
+			<if test="custZipcode != null">
+				c.cust_zipcode = #{custZipcode},
+			</if>
+			<if test="custAddress != null">
+				c.cust_address = #{custAddress},
+			</if>
+		</set>
+		<where>
+			c.cust_id = #{custId}
+		</where>
+	</update>
+	
+	<!-- 根据id删除用户 -->
+	<delete id="deleteCustomerById" parameterType="long">
+		delete from customer where cust_id = #{xxx}
+	</delete>
+		
+</mapper>
