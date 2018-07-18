@@ -58,6 +58,9 @@ public class CustomerController {
 		//首次冲突模拟
 		System.out.println("首次冲突模拟");
 		
+		//第二次冲突首次提交
+		System.out.println("第二次冲突首次提交");
+		
 		return "customer";
 	}
 	
