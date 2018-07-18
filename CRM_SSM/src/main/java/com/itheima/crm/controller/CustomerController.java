@@ -64,9 +64,11 @@ public class CustomerController {
 		//第二次冲突第二次提交
 		System.out.println("第二次冲突第二次提交");
 		
+		//第三次冲突首次提交
+		System.out.println("第三次冲突首次提交");
+		
 		//第三次冲突第二次提交
 		System.out.println("第三次冲突第二次提交");
-		
 		return "customer";
 	}
 	
