@@ -52,6 +52,9 @@ public class CustomerController {
 		
 		model.addAttribute("page", page);
 		
+		//首次添加了一些内容
+		System.out.println("首次添加的内容");
+
 		//首次冲突模拟
 		System.out.println("首次冲突模拟");
 		
