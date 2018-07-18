@@ -70,6 +70,9 @@ public class CustomerController {
 		//将结果放进域中
 		model.addAttribute("customer", customer);
 		
+		//首次添加了一些内容
+		System.out.println("首次添加的内容");
+		
 		return customer;
 	}
 	
